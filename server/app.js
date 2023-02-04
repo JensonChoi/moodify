@@ -11,8 +11,8 @@ const express = require('express') // Express web server framework
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 
-const auth_controller = require('./controllers/authController')
-const api_controller = require('./controllers/apiController')
+const authController = require('./controllers/authController')
+const apiController = require('./controllers/apiController')
 
 const app = express()
 
@@ -22,13 +22,13 @@ app
   .use(cookieParser())
   .use(express.json())
 
-app.get('/login', auth_controller.login)
+app.get('/login', authController.login)
 
-app.get('/callback', auth_controller.callback)
+app.get('/callback', authController.callback)
 
-app.get('/refresh_token', auth_controller.refresh_token_get)
+app.get('/refresh_token', authController.refresh_token_get)
 
-app.post('/playlist/create', api_controller.playlist_create_post)
+app.post('/playlist/create', apiController.playlist_create_post)
 
 console.log('Listening on 8888')
 app.listen(8888)
