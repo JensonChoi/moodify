@@ -1,8 +1,10 @@
 const request = require('request') // "Request" library
 const querystring = require('querystring')
 
-const client_id = 'CLIENT_ID' // Your client id
-const client_secret = 'CLIENT_SECRET' // Your secret
+const AuthConfig = require('../config/auth')
+
+const client_id = AuthConfig.CLIENT_ID
+const client_secret = AuthConfig.CLIENT_SECRET
 const redirect_uri = 'http://localhost:8888/callback/' // Your redirect uri
 
 const stateKey = 'spotify_auth_state'
