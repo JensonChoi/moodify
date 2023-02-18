@@ -26,9 +26,9 @@ app.get('/login', authController.login)
 
 app.get('/callback', authController.callback)
 
-app.get('/refresh_token', authController.refresh_token_get)
+app.get('/refresh_token', authController.refreshToken)
 
-app.post('/playlist/create', apiController.playlist_create_post)
+app.post('/playlist/generate', apiController.generatePlaylist)
 
 console.log('Listening on 8888')
 app.listen(8888)
