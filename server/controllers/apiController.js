@@ -39,7 +39,7 @@ const getToken = (callback) => {
   }
 }
 
-exports.playlist_create_post = async (req, res) => {
+exports.generatePlaylist = async (req, res) => {
   const { mood } = req.body
   getToken(() => {
     spotifyApi

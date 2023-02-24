@@ -111,7 +111,7 @@ exports.callback = (req, res) => {
   }
 }
 
-exports.refresh_token_get = (req, res) => {
+exports.refreshToken = (req, res) => {
   // requesting access token from refresh token
   const refresh_token = req.query.refresh_token
   const authOptions = {
