@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import '../styles/Navbar.css';
+import '../styles/global.css';
 
 function Navbar() {
     return (
@@ -9,13 +10,13 @@ function Navbar() {
         Moodify
       </Link>
       <Link className="nav-link right" to="/">
-        home
+        🏠 home
       </Link>
       <Link className="nav-link right" to="/">
-        generate!
+        🎵 generate!
       </Link>
       <Link className="nav-link right" to="/">
-        about
+        👋 about
       </Link>
     </div>
     );

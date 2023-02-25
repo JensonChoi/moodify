@@ -1,0 +1,20 @@
+.home-page {
+    background-color: #E4F5E4;
+    height: 600px;
+    overflow: hidden;
+}
+
+.main-section {
+    padding-top: 10%;
+    width: 35%;
+    padding-left: 31.5%;
+}
+
+.heading {
+    font-size: 3em;
+    letter-spacing: 1px;
+}
+
+.desc {
+    line-height: 24px;
+}
