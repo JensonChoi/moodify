@@ -1,7 +1,7 @@
 import React from "react";
 import '../styles/Home.css';
 import '../styles/global.css';
-import Button from './Button';
+import Button from '../components/Button';
 
 function Home() {
     return (

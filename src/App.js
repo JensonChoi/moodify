@@ -1,5 +1,7 @@
 import Navbar from'./components/Navbar';
-import Home from'./components/Home';
+import Home from'./pages/Home';
+import About from './pages/About';
+import Generate from './pages/Generate';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -13,6 +15,8 @@ function App() {
       <div className='container'>
         <Routes>
           <Route exact path='/' element={<Home/>} />
+          <Route exact path='/generate' element={<Generate/>} />
+          <Route exact path='/about' element={<About/>} />
         </Routes>
       </div>
      </Router>

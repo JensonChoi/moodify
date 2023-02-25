@@ -12,10 +12,10 @@ function Navbar() {
       <Link className="nav-link right" to="/">
         🏠 home
       </Link>
-      <Link className="nav-link right" to="/">
+      <Link className="nav-link right" to="/generate">
         🎵 generate!
       </Link>
-      <Link className="nav-link right" to="/">
+      <Link className="nav-link right" to="/about">
         👋 about
       </Link>
     </div>
