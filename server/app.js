@@ -13,6 +13,7 @@ const cookieParser = require('cookie-parser')
 
 const authController = require('./controllers/authController')
 const apiController = require('./controllers/apiController')
+const openaiController = require('./controllers/openaiController')
 
 const app = express()
 
@@ -29,6 +30,8 @@ app.get('/callback', authController.callback)
 app.get('/refresh_token', authController.refreshToken)
 
 app.post('/playlist/generate', apiController.generatePlaylist)
+
+app.get('/generate_art', openaiController.generateImg)
 
 console.log('Listening on 8888')
 app.listen(8888)
