@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/Home.css';
 import '../styles/global.css';
+import Button from './Button';
 
 function Home() {
     return (
@@ -10,6 +11,7 @@ function Home() {
                 <div className="desc">
                     Welcome to Moodify, a web application that generates a Spotify playlist based on how you're feeling.
                 </div>
+                <Button name="enter!"/>
             </div>
         </div>
     );
