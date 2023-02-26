@@ -15,6 +15,8 @@ const authController = require('./controllers/authController')
 const apiController = require('./controllers/apiController')
 const openaiController = require('./controllers/openaiController')
 
+const { Configuration, OpenAIApi } = require("openai");
+
 const app = express()
 
 app
@@ -31,7 +33,24 @@ app.get('/refresh_token', authController.refreshToken)
 
 app.post('/playlist/generate', apiController.generatePlaylist)
 
-app.get('/generate_art', openaiController.generateImg)
+app.get('/generate_art', async (req, res) => {
+  const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+  console.log("CONFIGURATION: ", configuration)
+  const openai = new OpenAIApi(configuration);
+  console.log("REQUEST: ", req)
+  const mood = req.query.mood;
+  console.log("MOOD: ", mood)
+  const response = await openai.createImage({
+    prompt: mood,
+    n: 1,
+    size: "1024x1024",
+  });
+  console.log("RESPONSE: ", response)
+  console.log("RESPONSE DATA: ", response.data.data[0])
+  res.send(response.data.data[0].url);
+});
 
 console.log('Listening on 8888')
 app.listen(8888)
