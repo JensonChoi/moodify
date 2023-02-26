@@ -37,19 +37,20 @@ app.get('/generate_art', async (req, res) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   });
-  console.log("CONFIGURATION: ", configuration)
   const openai = new OpenAIApi(configuration);
-  console.log("REQUEST: ", req)
+  //console.log("REQUEST: ", req)
   const mood = req.query.mood;
-  console.log("MOOD: ", mood)
-  const response = await openai.createImage({
-    prompt: mood,
-    n: 1,
-    size: "1024x1024",
-  });
-  console.log("RESPONSE: ", response)
-  console.log("RESPONSE DATA: ", response.data.data[0])
-  res.send(response.data.data[0].url);
+  try {
+    const response = await openai.createImage({
+      prompt: mood,
+      n: 1,
+      size: "1024x1024",
+    });
+    res.send(response.data.data[0].url);
+  } catch (err) {
+    //console.log(err);
+    res.status(500).send("Error generating image.");
+  }
 });
 
 console.log('Listening on 8888')
