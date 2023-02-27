@@ -28,6 +28,8 @@ app.get('/callback', authController.callback)
 
 app.get('/refresh_token', authController.refreshToken)
 
+app.post('/playlist/save', authController.savePlaylist)
+
 app.post('/playlist/generate', apiController.generatePlaylist)
 
 console.log('Listening on 8888')

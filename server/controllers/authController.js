@@ -1,5 +1,6 @@
 const request = require('request') // "Request" library
 const querystring = require('querystring')
+const SpotifyWebApi = require('spotify-web-api-node')
 
 const AuthConfig = require('../config/auth')
 
@@ -8,6 +9,11 @@ const client_secret = AuthConfig.CLIENT_SECRET
 const redirect_uri = 'http://localhost:8888/callback/' // Your redirect uri
 
 const stateKey = 'spotify_auth_state'
+
+const spotifyApi = new SpotifyWebApi({
+  clientId: client_id,
+  clientSecret: client_secret,
+})
 
 /**
  * Generates a random string containing numbers and letters
@@ -30,7 +36,7 @@ exports.login = (req, res) => {
   res.cookie(stateKey, state)
 
   // your application requests authorization
-  const scope = 'user-read-private user-read-email'
+  const scope = 'user-read-private playlist-modify-private'
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
@@ -79,6 +85,8 @@ exports.callback = (req, res) => {
       if (!error && response.statusCode === 200) {
         const access_token = body.access_token,
           refresh_token = body.refresh_token
+        spotifyApi.setAccessToken(access_token)
+        spotifyApi.setRefreshToken(refresh_token)
 
         const options = {
           url: 'https://api.spotify.com/v1/me',
@@ -131,9 +139,36 @@ exports.refreshToken = (req, res) => {
   request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const access_token = body.access_token
+      SpotifyWebApi.setAccessToken(access_token)
       res.send({
         access_token: access_token,
       })
     }
   })
+}
+
+exports.savePlaylist = (req, res) => {
+  const { name, description, track_uris } = req.body
+  res.redirect('/login')
+  spotifyApi
+    .createPlaylist(name, {
+      description: description,
+      public: false,
+    })
+    .then(
+      (data) => {
+        const playlistId = data.body.id
+        spotifyApi.addTracksToPlaylist(playlistId, track_uris).then(
+          (data) => {
+            res.status(200).json({ data: data })
+          },
+          (err) => {
+            res.status(500).json({ error: err })
+          }
+        )
+      },
+      (err) => {
+        res.status(500).json({ error: err })
+      }
+    )
 }
