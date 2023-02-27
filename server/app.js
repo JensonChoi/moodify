@@ -31,6 +31,8 @@ app.get('/callback', authController.callback)
 
 app.get('/refresh_token', authController.refreshToken)
 
+app.post('/playlist/save', authController.savePlaylist)
+
 app.post('/playlist/generate', apiController.generatePlaylist)
 
 app.get('/generate_art', async (req, res) => {
