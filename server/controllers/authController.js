@@ -149,7 +149,7 @@ exports.refreshToken = (req, res) => {
 
 exports.savePlaylist = (req, res) => {
   const { name, description, track_uris } = req.body
-  res.redirect('/login')
+  //res.redirect('/login')
   spotifyApi
     .createPlaylist(name, {
       description: description,
