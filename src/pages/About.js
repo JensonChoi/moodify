@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/global.css';
 import '../styles/About.css'
 
 const AboutPage = () => {
@@ -12,6 +13,10 @@ const AboutPage = () => {
                 inputting a key word into our generation box! From there, Moodify will generate a playlist based off your mood
                 by looking at your preexisting playlists. If you have less than 5 songs that match the input mood, Moodify will look
                 through Spotify to generate a playlist with at least 5 songs that we think you would like!
+            </p>
+            <h2>Why Moodify?</h2>
+            <p>Sometimes you may want to listen to songs that matches your mood, but you may not have a playlist ready. Moodify aims
+                to solve this problem by generating a playlist of songs based off your mood and your pre-existing Spotify playlists.
             </p>
             <h2>Meet the Team!</h2>
             <p>Moodify was created by Divya Ponniah, Hannah Zhong, Jenson Choi, Maya Raman, and Vivian Ha as their capstone project
