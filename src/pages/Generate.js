@@ -1,7 +1,6 @@
 import React from "react";
 
 import MoodForm from "../components/MoodForm.js"
-import Button from "../components/Button.js"
 
 import '../styles/Generate.css';
 import '../styles/global.css';
@@ -15,9 +14,6 @@ function Generate() {
                     Input what mood you're feeling in the text box, and click the generate button to create a playlist!
                 </div>
                 <MoodForm/>
-                <div className='generate-button'>
-                    <Button name="Generate!"/>
-                </div>
             </div>
         </div>
     );
