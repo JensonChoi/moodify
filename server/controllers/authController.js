@@ -36,7 +36,7 @@ exports.login = (req, res) => {
   res.cookie(stateKey, state)
 
   // your application requests authorization
-  const scope = 'user-read-private playlist-modify-private'
+  const scope = 'user-read-private playlist-modify-private user-top-read'
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
@@ -139,7 +139,7 @@ exports.refreshToken = (req, res) => {
   request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const access_token = body.access_token
-      SpotifyWebApi.setAccessToken(access_token)
+      SpotifyApi.setAccessToken(access_token)
       res.send({
         access_token: access_token,
       })
@@ -167,6 +167,42 @@ exports.savePlaylist = (req, res) => {
           }
         )
       },
+      (err) => {
+        res.status(500).json({ error: err })
+      }
+    )
+}
+
+exports.generatePersonalPlaylist = (req, res) => {
+  const { mood } = req.body
+  const MAX_SONGS_IN_PLAYLIST = 20
+  //res.redirect('/login')
+  // get top artists for profile logged in
+  spotifyApi
+    .getMyTopArtists({
+      limit: 5, //return max 5 items bc recommendations only takes 5
+      time_range: "medium_term"
+    })
+    .then(
+      (data) => {
+        // get all artist ids of top 5 artists
+        let artist_ids = data.body.items.map(item => item.id)
+        //convert artist_ids to comma-separated string for next api call
+        let seed_artists = artist_ids.join(',')
+        spotifyApi.getRecommendations({
+          seed_artists: seed_artists,
+          seed_genres: mood,
+          limit: MAX_SONGS_IN_PLAYLIST
+        })
+        .then(
+          (data) => {
+            let recommendations = data.body
+            res.status(200).json({ tracks: recommendations.tracks })
+          },
+          (err) => {
+            res.status(500).json({ error: err })
+          }
+        )},
       (err) => {
         res.status(500).json({ error: err })
       }

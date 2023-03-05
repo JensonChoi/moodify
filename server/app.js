@@ -13,7 +13,6 @@ const cookieParser = require('cookie-parser')
 
 const authController = require('./controllers/authController')
 const apiController = require('./controllers/apiController')
-const openaiController = require('./controllers/openaiController')
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -34,6 +33,8 @@ app.get('/refresh_token', authController.refreshToken)
 app.post('/playlist/save', authController.savePlaylist)
 
 app.post('/playlist/generate', apiController.generatePlaylist)
+
+app.post('/playlist/personal_generate', authController.generatePersonalPlaylist)
 
 app.get('/generate_art', async (req, res) => {
   const configuration = new Configuration({
