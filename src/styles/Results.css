@@ -5,7 +5,7 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    
 }
 
 .results-page-row:before, .results-page-row:after  {
@@ -15,6 +15,8 @@
 .results-image-box{
     display: flex;
     justify-content: center;
+
+    padding-top: 3%;
 }
 
 .results-page-row{
@@ -22,13 +24,15 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
+    padding-top: 3%;
 }
 
 .results-page-column{
     flex-direction: column;
     text-align: left;
 
-    padding-top: 3em;
+    padding-top: 2%;
 }
 
 .results-page-text-username{
@@ -72,3 +76,29 @@
     padding-inline: 4em;
 }
 
+.artist-title {
+    font-size: 10px;
+}
+
+table {
+    width: 60%;
+    max-width: 1200px;
+
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    border-bottom: 1px solid black;
+    background-color: #E4F5E4;
+}
+
+td {
+    text-align: left;
+
+    background-color: #E4F5E4;
+    height:max-content;
+
+    padding-top: 0.25%;
+    padding-bottom: 0.25%;
+}
