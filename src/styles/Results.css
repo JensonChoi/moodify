@@ -1,15 +1,10 @@
 .results-page-container{
-    height: 100vh;
     width: 100vw;
     background-color: #E4F5E4;
 
     display: flex;
     flex-direction: column;
     
-}
-
-.results-page-row:before, .results-page-row:after  {
-    content: " ";
 }
 
 .results-image-box{
@@ -26,6 +21,7 @@
     align-items: center;
 
     padding-top: 3%;
+    padding-bottom: 3%;
 }
 
 .results-page-column{
@@ -82,7 +78,7 @@
 }
 
 table {
-    width: 60%;
+    width: 70%;
     max-width: 1200px;
 
     border-collapse: collapse;
@@ -90,7 +86,6 @@ table {
 
 th {
     text-align: left;
-    border-bottom: 1px solid black;
     background-color: #E4F5E4;
     padding-left: 5%
 }
@@ -101,7 +96,12 @@ td {
     background-color: #E4F5E4;
     height:max-content;
 
-    padding-top: 0.25%;
+    padding-top: 0.5%;
     padding-bottom: 0.25%;
     padding-left: 5%
+}
+
+.song-image {
+    width: 50px;
+    height: 50px;
 }
