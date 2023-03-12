@@ -13,7 +13,6 @@ const cookieParser = require('cookie-parser')
 
 const authController = require('./controllers/authController')
 const apiController = require('./controllers/apiController')
-const openaiController = require('./controllers/openaiController')
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -35,6 +34,8 @@ app.post('/playlist/save', authController.savePlaylist)
 
 app.post('/playlist/generate', apiController.generatePlaylist)
 
+app.post('/playlist/personal_generate', authController.generatePersonalPlaylist)
+
 app.get('/generate_art', async (req, res) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -42,12 +43,14 @@ app.get('/generate_art', async (req, res) => {
   const openai = new OpenAIApi(configuration);
   //console.log("REQUEST: ", req)
   const mood = req.query.mood;
+  console.log(mood)
   try {
     const response = await openai.createImage({
       prompt: mood,
       n: 1,
       size: "1024x1024",
     });
+    // console.log(response.data.data[0].url)
     res.send(response.data.data[0].url);
   } catch (err) {
     //console.log(err);

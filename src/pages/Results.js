@@ -35,12 +35,12 @@ function Results(props) {
     const navigate = useNavigate();
     const location = useLocation();
 
-    /*const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             let uriArr = [];
             let i = 0;
-            /*for( i = 0; i < 20; i++ ) {
+            for( i = 0; i < 20; i++ ) {
                 uriArr.push(location.state.data[i].uri);
             }
 
@@ -48,29 +48,18 @@ function Results(props) {
             console.log(mood);
             console.log(uriArr);
 
-            const artResponse = await axios.get('http://localhost:8888/generate_art', { mood });
-            console.log(artResponse.data);*/
-
-            /*const login = await axios.get('http://localhost:8888/login')
-            .then(response => {
-                window.location.href = response.data.redirectUrl
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    
-            const response = await axios.post('http://localhost:8888/playlist/save', { mood, mood, uriArr });
+            const response = await axios.post('http://localhost:8888/playlist/save', { name: mood[0], description: mood[0], track_uris: uriArr });
             console.log(response.data);
 
         } catch (error) {
             console.log(error);
         }
-    };*/
+    };
 
     return (
         <div className="results-page-container">
             <div className="results-image-box" style={{backgroundColor: "#a1cda1"}}>
-                <img className="results-image" alt="temp" src='https://i.scdn.co/image/ab67616d0000b2736dee21d6cd1823e4d6231d37' />
+                <img className="results-image" alt="temp" src={location.state.album_art} />
                 <div className="results-page-column">
                     <div className="results-page-text-username" >Generated Playlist</div>
                     <h1 className='results-title'>{location.state.moodCheck}</h1>
@@ -111,7 +100,7 @@ function Results(props) {
 
             <div className="results-page-row">
                 <button className="results-button" style={{width: 200}} onClick={() => navigate("/generate")}>generate again!</button>
-                <button className="results-button" /*onClick={handleSubmit}*/>add to spotify library</button>
+                <button className="results-button" onClick={handleSubmit}>add to spotify library</button>
             </div>
         </div>
     );

@@ -42,6 +42,7 @@ const getToken = (callback) => {
 exports.generatePlaylist = async (req, res) => {
   const { mood } = req.body
   getToken(() => {
+    // get recommendations from songs
     spotifyApi
       .getRecommendations({
         seed_genres: mood,
