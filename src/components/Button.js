@@ -4,7 +4,9 @@ import '../styles/global.css'
 
 function Button(props) {
   function handleClick(e) {
-    window.location.href = 'https://moodify-backend1.herokuapp.com/login'
+    if (props.loginRedirect) {
+      window.location.href = 'https://moodify-backend1.herokuapp.com/login'
+    }
   }
   return (
     <button className='big-button' onClick={handleClick}>
