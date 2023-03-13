@@ -14,15 +14,15 @@ const cookieParser = require('cookie-parser')
 const authController = require('./controllers/authController')
 const apiController = require('./controllers/apiController')
 
-const { Configuration, OpenAIApi } = require("openai");
+const { Configuration, OpenAIApi } = require('openai')
 
 const app = express()
 
-app
-  .use(express.static(__dirname + '/public'))
-  .use(cors())
-  .use(cookieParser())
-  .use(express.json())
+app.use(express.static(path.join(__dirname, '/client/build')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
+})
 
 app.get('/login', authController.login)
 
@@ -39,26 +39,26 @@ app.post('/playlist/personal_generate', authController.generatePersonalPlaylist)
 app.get('/generate_art', async (req, res) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
-  });
-  const openai = new OpenAIApi(configuration);
+  })
+  const openai = new OpenAIApi(configuration)
   //console.log("REQUEST: ", req)
-  const mood = req.query.mood;
+  const mood = req.query.mood
   console.log(mood)
   try {
     const response = await openai.createImage({
       prompt: mood,
       n: 1,
-      size: "1024x1024",
-    });
+      size: '1024x1024',
+    })
     // console.log(response.data.data[0].url)
-    res.send(response.data.data[0].url);
+    res.send(response.data.data[0].url)
   } catch (err) {
     //console.log(err);
-    res.status(500).send("Error generating image.");
+    res.status(500).send('Error generating image.')
   }
-});
+})
 
 console.log('Listening on 8888')
-app.listen(8888)
+app.listen(process.env.PORT || 8888)
 
 module.exports = app
