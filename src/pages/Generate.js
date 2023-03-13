@@ -18,5 +18,4 @@ function Generate() {
         </div>
     );
 }
-
 export default Generate;

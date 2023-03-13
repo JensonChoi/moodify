@@ -176,11 +176,11 @@ exports.savePlaylist = (req, res) => {
 exports.generatePersonalPlaylist = (req, res) => {
   const { mood } = req.body
   const MAX_SONGS_IN_PLAYLIST = 20
-  //res.redirect('/login')
+  // res.redirect('/login')
   // get top artists for profile logged in
   spotifyApi
     .getMyTopArtists({
-      limit: 5, //return max 5 items bc recommendations only takes 5
+      limit: 4, //return max 5 items bc recommendations only takes 5
       time_range: "medium_term"
     })
     .then(

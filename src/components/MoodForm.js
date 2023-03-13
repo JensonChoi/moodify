@@ -1,18 +1,29 @@
 import React, {useState} from 'react'
 import axios from 'axios';
 
-import Button from "../components/Button.js"
+import Button from "../components/Button.js";
 
-import "../styles/MoodForm.css"
+import "../styles/MoodForm.css";
+import { useNavigate } from "react-router-dom";
 
-const MoodForm = () => {
+const MoodForm = (props) => {
   const [mood, setMood] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8888/playlist/generate', { mood });
-      console.log(response.data);
+
+      console.log(mood);
+      const response = await axios.post('http://localhost:8888/playlist/personal_generate', { mood });
+      // console.log(response.data);
+
+      const art = await axios.get('http://localhost:8888/generate_art?mood=' + mood );
+      // console.log(typeof(art.data));
+
+      navigate("/results", {state:{album_art:(art.data), data:(response.data['tracks']), moodCheck:[mood]}});
+
     } catch (error) {
       console.error(error);
     }

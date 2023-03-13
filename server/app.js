@@ -43,12 +43,14 @@ app.get('/generate_art', async (req, res) => {
   const openai = new OpenAIApi(configuration);
   //console.log("REQUEST: ", req)
   const mood = req.query.mood;
+  console.log(mood)
   try {
     const response = await openai.createImage({
       prompt: mood,
       n: 1,
       size: "1024x1024",
     });
+    // console.log(response.data.data[0].url)
     res.send(response.data.data[0].url);
   } catch (err) {
     //console.log(err);
