@@ -6,7 +6,7 @@ const AuthConfig = require('../config/auth')
 
 const client_id = AuthConfig.CLIENT_ID
 const client_secret = AuthConfig.CLIENT_SECRET
-const redirect_uri = 'http://localhost:8888/callback/' // Your redirect uri
+const redirect_uri = 'https://moodify-backend1.herokuapp.com/callback/' // Your redirect uri
 
 const stateKey = 'spotify_auth_state'
 
@@ -181,28 +181,30 @@ exports.generatePersonalPlaylist = (req, res) => {
   spotifyApi
     .getMyTopArtists({
       limit: 4, //return max 5 items bc recommendations only takes 5
-      time_range: "medium_term"
+      time_range: 'medium_term',
     })
     .then(
       (data) => {
         // get all artist ids of top 5 artists
-        let artist_ids = data.body.items.map(item => item.id)
+        let artist_ids = data.body.items.map((item) => item.id)
         //convert artist_ids to comma-separated string for next api call
         let seed_artists = artist_ids.join(',')
-        spotifyApi.getRecommendations({
-          seed_artists: seed_artists,
-          seed_genres: mood,
-          limit: MAX_SONGS_IN_PLAYLIST
-        })
-        .then(
-          (data) => {
-            let recommendations = data.body
-            res.status(200).json({ tracks: recommendations.tracks })
-          },
-          (err) => {
-            res.status(500).json({ error: err })
-          }
-        )},
+        spotifyApi
+          .getRecommendations({
+            seed_artists: seed_artists,
+            seed_genres: mood,
+            limit: MAX_SONGS_IN_PLAYLIST,
+          })
+          .then(
+            (data) => {
+              let recommendations = data.body
+              res.status(200).json({ tracks: recommendations.tracks })
+            },
+            (err) => {
+              res.status(500).json({ error: err })
+            }
+          )
+      },
       (err) => {
         res.status(500).json({ error: err })
       }
