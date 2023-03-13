@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "start": "npm install && node app.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jenson Choi, Maya Raman",

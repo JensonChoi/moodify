@@ -18,11 +18,11 @@ const { Configuration, OpenAIApi } = require('openai')
 
 const app = express()
 
-app.use(express.static(path.join(__dirname, '/client/build')))
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
-})
+app
+  .use(express.static(__dirname + '/public'))
+  .use(cors())
+  .use(cookieParser())
+  .use(express.json())
 
 app.get('/login', authController.login)
 
