@@ -15,15 +15,17 @@ const MoodForm = (props) => {
     event.preventDefault()
     try {
       console.log(mood)
+      const baseUrl =
+        process.env.REACT_APP_ENVIRONMENT === 'local'
+          ? 'http://localhost:8888'
+          : 'https://moodify-backend1.herokuapp.com'
       const response = await axios.post(
-        'https://moodify-backend1.herokuapp.com/playlist/personal_generate',
+        `${baseUrl}/playlist/personal_generate`,
         { mood }
       )
       // console.log(response.data);
 
-      const art = await axios.get(
-        'https://moodify-backend1.herokuapp.com/generate_art?mood=' + mood
-      )
+      const art = await axios.get(`${baseUrl}/generate_art?mood=` + mood)
       // console.log(typeof(art.data));
 
       navigate('/results', {

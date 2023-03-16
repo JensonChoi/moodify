@@ -46,11 +46,16 @@ function Results(props) {
       let mood = location.state.moodCheck
       console.log(mood)
       console.log(uriArr)
+      const baseUrl =
+        process.env.REACT_APP_ENVIRONMENT === 'local'
+          ? 'http://localhost:8888'
+          : 'https://moodify-backend1.herokuapp.com'
 
-      const response = await axios.post(
-        'https://moodify-backend1.herokuapp.com/playlist/save',
-        { name: mood[0], description: mood[0], track_uris: uriArr }
-      )
+      const response = await axios.post(`${baseUrl}/playlist/save`, {
+        name: mood[0],
+        description: mood[0],
+        track_uris: uriArr,
+      })
       console.log(response.data)
     } catch (error) {
       console.log(error)

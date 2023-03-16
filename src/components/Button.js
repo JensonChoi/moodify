@@ -5,7 +5,12 @@ import '../styles/global.css'
 function Button(props) {
   function handleClick(e) {
     if (props.loginRedirect) {
-      window.location.href = 'https://moodify-backend1.herokuapp.com/login'
+      const href =
+        process.env.REACT_APP_ENVIRONMENT === 'local'
+          ? 'http://localhost:8888/login'
+          : 'https://moodify-backend1.herokuapp.com/login'
+      console.log(href)
+      window.location.href = href
     }
   }
   return (
