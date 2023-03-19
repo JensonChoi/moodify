@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:16.13.0 # Set the Node.js version to use
+    steps:
+      - checkout # Check out the source code
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            # Restore the dependencies from the cache
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules # Cache the dependencies
+      - run:
+          name: Build
+          command: npm run build # Build the project
+      - run:
+          name: Run tests
+          command: npm test # Run tests
+      - store_artifacts:
+          path: test-results.xml # Store test results as an artifact
+
+workflows:
+  build_and_test:
+    jobs:
+      - build # Run the build job
